@@ -1,6 +1,5 @@
 import logging
 import logstash
-from src import envs
 
 
 class Logstash:
