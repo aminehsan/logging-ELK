@@ -1,5 +1,6 @@
-from logging import getLogger, INFO
-from logstash import TCPLogstashHandler
+import logging
+import logstash
+from src import envs
 
 
 class Logstash:
@@ -11,31 +12,34 @@ class Logstash:
 
     def __setup(self, name: str, host: str, port: int):
         """Set up the logger."""
-        self.__logger = getLogger(name)
-        self.__logger.setLevel(INFO)
-        self.__logger.addHandler(TCPLogstashHandler(host=host, port=port, version=1))
+        self.__logger = logging.getLogger(name)
+        self.__logger.setLevel(logging.INFO)
+        self.__logger.addHandler(logstash.TCPLogstashHandler(host=host, port=port, version=1))
 
     def debug(self, msg: str = '', extra: dict = None) -> None:
         extra = extra or dict()
         extra.update(self.__information)
-        self.__logger.debug(msg=msg, extra=extra)
+        self.__logger.debug(msg=msg, exc_info=True, stack_info=True, extra=extra)
 
     def info(self, msg: str = '', extra: dict = None) -> None:
         extra = extra or dict()
         extra.update(self.__information)
-        self.__logger.info(msg=msg, extra=extra)
+        self.__logger.info(msg=msg, exc_info=True, stack_info=True, extra=extra)
 
     def warning(self, msg: str = '', extra: dict = None) -> None:
         extra = extra or dict()
         extra.update(self.__information)
-        self.__logger.warning(msg=msg, extra=extra)
+        self.__logger.warning(msg=msg, exc_info=True, stack_info=True, extra=extra)
 
     def error(self, msg: str = '', extra: dict = None) -> None:
         extra = extra or dict()
         extra.update(self.__information)
-        self.__logger.error(msg=msg, extra=extra)
+        self.__logger.error(msg=msg, exc_info=True, stack_info=True, extra=extra)
 
     def critical(self, msg: str = '', extra: dict = None) -> None:
         extra = extra or dict()
         extra.update(self.__information)
-        self.__logger.critical(msg=msg, extra=extra)
+        self.__logger.critical(msg=msg, exc_info=True, stack_info=True, extra=extra)
+
+
+# logger = Logstash(...)
