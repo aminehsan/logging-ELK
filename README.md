@@ -10,4 +10,5 @@ logger.info(msg='...', extra={})
 #### Structure :
 ```
 ├── main.py
+├── requirements.txt
 ```
