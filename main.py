@@ -5,14 +5,14 @@ import logstash
 class Logstash:
     """A Python class for interacting with Logstash, a logger."""
 
-    def __init__(self, name: str, host: str, port: int, project: str) -> None:
+    def __init__(self, host: str, port: int, project: str, name: str) -> None:
         self.__setup(name=name, host=host, port=port)
         self.__information = {'project': project}
 
     def __setup(self, name: str, host: str, port: int):
         """Set up the logger."""
         self.__logger = logging.getLogger(name)
-        self.__logger.setLevel(logging.INFO)
+        self.__logger.setLevel(logging.DEBUG)
         self.__logger.addHandler(logstash.TCPLogstashHandler(host=host, port=port, version=1))
 
     def debug(self, msg: str = '', extra: dict = None) -> None:
